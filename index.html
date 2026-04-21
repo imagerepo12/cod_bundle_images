@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bundle Proof of Concept</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --panel: #111827;
+      --card: #1f2937;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --accent: #38bdf8;
+      --border: rgba(255,255,255,0.08);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(180deg, #020617 0%, #0f172a 100%);
+      color: var(--text);
+    }
+    .wrap {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 28px 20px 48px;
+    }
+    .banner {
+      display: grid;
+      grid-template-columns: minmax(260px, 400px) 1fr;
+      gap: 24px;
+      background: rgba(17,24,39,0.9);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 22px;
+      align-items: center;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+    }
+    .hero {
+      width: 100%;
+      max-height: 420px;
+      object-fit: contain;
+      background: #0b1220;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      padding: 12px;
+    }
+    h1 { margin: 0 0 10px; font-size: 34px; line-height: 1.1; }
+    .meta, .help { color: var(--muted); font-size: 14px; line-height: 1.5; }
+    .meta strong { color: var(--text); }
+    .cta {
+      display: inline-block;
+      margin-top: 16px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: var(--accent);
+      color: #082f49;
+      text-decoration: none;
+      font-weight: 700;
+    }
+    .section-title {
+      margin: 28px 0 14px;
+      font-size: 24px;
+    }
+    .items {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 16px;
+    }
+    .item {
+      background: rgba(17,24,39,0.9);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 14px;
+      min-height: 100%;
+    }
+    .item img {
+      width: 100%;
+      height: 180px;
+      object-fit: contain;
+      background: #0b1220;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      padding: 8px;
+      display: block;
+      margin-bottom: 10px;
+    }
+    .item-type {
+      color: var(--accent);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 6px;
+    }
+    .item-name {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .item-sub {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.4;
+      word-break: break-word;
+    }
+    .footer-note {
+      margin-top: 28px;
+      color: var(--muted);
+      font-size: 13px;
+      background: rgba(15,23,42,0.7);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px 16px;
+    }
+    @media (max-width: 800px) {
+      .banner { grid-template-columns: 1fr; }
+      h1 { font-size: 28px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div id="app">Loading bundle proof of concept...</div>
+  </div>
+
+  <script>
+    function parseCSV(text) {
+      const rows = [];
+      let row = [];
+      let value = '';
+      let inQuotes = false;
+
+      for (let i = 0; i < text.length; i++) {
+        const char = text[i];
+        const next = text[i + 1];
+
+        if (inQuotes) {
+          if (char === '"' && next === '"') {
+            value += '"';
+            i++;
+          } else if (char === '"') {
+            inQuotes = false;
+          } else {
+            value += char;
+          }
+        } else {
+          if (char === '"') {
+            inQuotes = true;
+          } else if (char === ',') {
+            row.push(value);
+            value = '';
+          } else if (char === '\n') {
+            row.push(value);
+            rows.push(row);
+            row = [];
+            value = '';
+          } else if (char === '\r') {
+            continue;
+          } else {
+            value += char;
+          }
+        }
+      }
+      if (value.length || row.length) {
+        row.push(value);
+        rows.push(row);
+      }
+      const [headers, ...data] = rows;
+      return data.filter(r => r.length && r.some(v => v !== '')).map(r => {
+        const out = {};
+        headers.forEach((h, idx) => out[h] = r[idx] ?? '');
+        return out;
+      });
+    }
+
+    async function loadCsv(path) {
+      const response = await fetch(path, { cache: 'no-store' });
+      if (!response.ok) throw new Error('Could not load ' + path);
+      const text = await response.text();
+      return parseCSV(text);
+    }
+
+    function formatDate(value) {
+      if (!value) return '';
+      const date = new Date(value);
+      if (Number.isNaN(date.getTime())) return value;
+      return date.toLocaleString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
+    }
+
+    async function main() {
+      const [bundleRows, heroRows, itemRows] = await Promise.all([
+        loadCsv('./data/bundle_names.csv'),
+        loadCsv('./data/bundle_images.csv'),
+        loadCsv('./data/item_images.csv')
+      ]);
+
+      const bundle = bundleRows[0];
+      const hero = heroRows[0];
+      const itemsHtml = itemRows.map(item => `
+        <article class="item">
+          <img src="${item.item_image_url}" alt="${item.item_name}">
+          <div class="item-type">${item.item_type}</div>
+          <div class="item-name">${item.item_name}</div>
+          <div class="item-sub">${item.item_asset_name}</div>
+        </article>
+      `).join('');
+
+      document.getElementById('app').innerHTML = `
+        <section class="banner">
+          <img class="hero" src="${hero.bundle_hero_image_url}" alt="${bundle.bundle_name}">
+          <div>
+            <div class="meta"><strong>Proof of concept</strong> for GitHub Pages</div>
+            <h1>${bundle.bundle_name}</h1>
+            <div class="meta">
+              <div><strong>Bundle ID:</strong> ${bundle.bundle_id}</div>
+              <div><strong>Title:</strong> ${bundle.title_key}</div>
+              <div><strong>Price:</strong> ${bundle.price_cp} CP</div>
+              <div><strong>Release:</strong> ${formatDate(bundle.release_timestamp)}</div>
+              <div><strong>Licensed IP:</strong> ${bundle.licensed_ip}</div>
+            </div>
+            <a class="cta" href="${bundle.bundle_store_page_url}" target="_blank" rel="noreferrer">Open store page</a>
+            <p class="help">This page is driven by three small CSV files in the <code>data</code> folder so stakeholders can update names and image URLs without touching the HTML.</p>
+          </div>
+        </section>
+
+        <h2 class="section-title">Items in this bundle (${itemRows.length})</h2>
+        <section class="items">${itemsHtml}</section>
+
+        <div class="footer-note">
+          Files used by this page: <code>data/bundle_names.csv</code>, <code>data/bundle_images.csv</code>, and <code>data/item_images.csv</code>.
+          Edit those files, commit the change, and GitHub Pages will update the public site.
+        </div>
+      `;
+    }
+
+    main().catch(err => {
+      document.getElementById('app').innerHTML = '<p>Could not load the proof-of-concept data files.</p><pre>' + err.message + '</pre>';
+    });
+  </script>
+</body>
+</html>

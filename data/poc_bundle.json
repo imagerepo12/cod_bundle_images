@@ -1,0 +1,102 @@
+{
+  "bundle": {
+    "bundle_id": 6366,
+    "bundle_name": "Tracer Pack: Fire Horse",
+    "title_key": "BO7",
+    "price_cp": 2000,
+    "release_timestamp": "2026-02-15T10:00:00",
+    "licensed_ip": "N",
+    "bundle_store_page_url": "https://www.callofduty.com/en/store/bundles/6366",
+    "notes": "Proof of concept bundle. Edit this row if you want to rename the bundle or swap the store page link."
+  },
+  "bundle_image": {
+    "bundle_id": 6366,
+    "bundle_name": "Tracer Pack: Fire Horse",
+    "bundle_image_role": "hero",
+    "bundle_hero_image_url": "https://www.callofduty.com/cod/cdn/webstore/saturn/ui_icon_operatorskin_select_gold_equus.webp?imwidth=640",
+    "source_field_used": "bundle_billboard_link",
+    "notes": "Use a direct image URL here. In the source workbook, bundle_image_link points to the store page, so this proof of concept uses bundle_billboard_link as the display image."
+  },
+  "items": [
+    {
+      "bundle_id": 6366,
+      "bundle_name": "Tracer Pack: Fire Horse",
+      "item_id": 127001,
+      "item_asset_name": "sat_ui_playercard_699",
+      "item_name": "Regal Elegance",
+      "item_type": "2D - Calling Card",
+      "item_image_url": "https://www.callofduty.com/cod/cdn/webstore/saturn/sat_ui_playercard_699.webp",
+      "notes": "Replace item_image_url to update an item image. Delete a row to remove an item from the page."
+    },
+    {
+      "bundle_id": 6366,
+      "bundle_name": "Tracer Pack: Fire Horse",
+      "item_id": 112333,
+      "item_asset_name": "sat_ui_emblem_013",
+      "item_name": "Cool Off",
+      "item_type": "2D - Emblem",
+      "item_image_url": "https://www.callofduty.com/cod/cdn/webstore/saturn/sat_ui_emblem_013.webp",
+      "notes": "Replace item_image_url to update an item image. Delete a row to remove an item from the page."
+    },
+    {
+      "bundle_id": 6366,
+      "bundle_name": "Tracer Pack: Fire Horse",
+      "item_id": 127057,
+      "item_asset_name": "sat_ui_spray_063",
+      "item_name": "Lantern",
+      "item_type": "2D - Spray",
+      "item_image_url": "https://www.callofduty.com/cod/cdn/webstore/saturn/sat_ui_spray_063.webp?imwidth=384",
+      "notes": "Replace item_image_url to update an item image. Delete a row to remove an item from the page."
+    },
+    {
+      "bundle_id": 6366,
+      "bundle_name": "Tracer Pack: Fire Horse",
+      "item_id": 127076,
+      "item_asset_name": "vinyl_sat_052_lny",
+      "item_name": "Lotus",
+      "item_type": "2D - Vinyl",
+      "item_image_url": "https://www.callofduty.com/cod/cdn/webstore/saturn/sat_ui_vinyl_052_lny.webp?imwidth=384",
+      "notes": "Replace item_image_url to update an item image. Delete a row to remove an item from the page."
+    },
+    {
+      "bundle_id": 6366,
+      "bundle_name": "Tracer Pack: Fire Horse",
+      "item_id": 124938,
+      "item_asset_name": "sat_chn_pl_gold_equus_skin",
+      "item_name": "Outrider",
+      "item_type": "Operator - Outfit",
+      "item_image_url": "https://www.callofduty.com/cod/cdn/webstore/saturn/ui_icon_operatorskin_select_gold_equus.webp?imwidth=640",
+      "notes": "Replace item_image_url to update an item image. Delete a row to remove an item from the page."
+    },
+    {
+      "bundle_id": 6366,
+      "bundle_name": "Tracer Pack: Fire Horse",
+      "item_id": 125107,
+      "item_asset_name": "sat_ar_falcon_equus",
+      "item_name": "Firehoof",
+      "item_type": "Weapon - AR Blueprint",
+      "item_image_url": "https://www.callofduty.com/cod/cdn/webstore/saturn/ui_icon_blueprint_side_sat_ar_falcon_equus.webp",
+      "notes": "Replace item_image_url to update an item image. Delete a row to remove an item from the page."
+    },
+    {
+      "bundle_id": 6366,
+      "bundle_name": "Tracer Pack: Fire Horse",
+      "item_id": 129231,
+      "item_asset_name": "cos_sat_198_equus",
+      "item_name": "Feeling Flaily",
+      "item_type": "Weapon - Charm",
+      "item_image_url": "https://www.callofduty.com/cod/cdn/webstore/saturn/ui_charm_sat_198_equus.webp?imwidth=384",
+      "notes": "Replace item_image_url to update an item image. Delete a row to remove an item from the page."
+    },
+    {
+      "bundle_id": 6366,
+      "bundle_name": "Tracer Pack: Fire Horse",
+      "item_id": 127250,
+      "item_asset_name": "sat_sm_bengal_equus",
+      "item_name": "Unbridled Blaze",
+      "item_type": "Weapon - SMG Blueprint",
+      "item_image_url": "https://www.callofduty.com/cod/cdn/webstore/saturn/ui_icon_blueprint_side_sat_sm_bengal_equus.webp",
+      "notes": "Replace item_image_url to update an item image. Delete a row to remove an item from the page."
+    }
+  ]
+}

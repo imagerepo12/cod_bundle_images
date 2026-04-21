@@ -1,0 +1,2 @@
+bundle_id,bundle_name,bundle_image_role,bundle_hero_image_url,source_field_used,notes
+6366,Tracer Pack: Fire Horse,hero,https://www.callofduty.com/cod/cdn/webstore/saturn/ui_icon_operatorskin_select_gold_equus.webp?imwidth=640,bundle_billboard_link,"Use a direct image URL here. In the source workbook, bundle_image_link points to the store page, so this proof of concept uses bundle_billboard_link as the display image."
